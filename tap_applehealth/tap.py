@@ -8,7 +8,6 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 from tap_applehealth.streams import (
     AppleHealthStream,
     WorkoutsStream,
-    WorkoutStatisticsStream,
 )
 
 
@@ -34,7 +33,6 @@ class TapAppleHealth(Tap):
         """
         return [
             WorkoutsStream(self),
-            WorkoutStatisticsStream(self),
         ]
 
 
