@@ -53,18 +53,15 @@ class AppleHealthStream(Stream):
         ):
             row = self._parse_xml(element)
 
-            # Assumes we have values for primary_keys colunns
-            primary_key_not_null = True
-
-            # Check each primary key in the row to make
-            # sure it has a value. If one does not have value,
-            # prevents the record from being yielded
-            for key_col in self.primary_keys:
-                if row.get(key_col) is None:
-                    primary_key_not_null = False
-
-            if primary_key_not_null:
-                yield dict(row)
+            # Check if values are present for all pk properties
+            if None not in [row[k] for k in self.primary_key_properties]:
+                # Create id column
+                row_id: str = " | ".join([
+                    row[k]
+                    for k
+                    in self.primary_key_properties
+                ])
+                yield dict({"id": row_id}, **row)
 
             # Cleans elements for performance
             element.clear()

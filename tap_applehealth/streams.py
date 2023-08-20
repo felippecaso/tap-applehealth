@@ -10,18 +10,20 @@ from tap_applehealth.client import AppleHealthStream
 class WorkoutsStream(AppleHealthStream):
     name = "workouts"
     xml_element_name = "Workout"
+    primary_key_properties = ["workoutActivityType", "startDate"]
+    primary_keys = ["id"]
     replication_key = None
-    primary_keys = ["workoutActivityType", "startDate"]
     schema = th.PropertiesList(
+        th.Property("id", th.StringType, required=True),
         th.Property("workoutActivityType", th.StringType, required=True),
         th.Property("duration", th.StringType, required=True),
         th.Property("durationUnit", th.StringType, required=True),
         th.Property("sourceName", th.StringType),
         th.Property("sourceVersion", th.StringType, required=True),
         th.Property("device", th.StringType),
-        th.Property("creationDate", th.DateTimeType, required=True),
-        th.Property("startDate", th.DateTimeType, required=True),
-        th.Property("endDate", th.DateTimeType, required=True),
+        th.Property("creationDate", th.StringType, required=True),
+        th.Property("startDate", th.StringType, required=True),
+        th.Property("endDate", th.StringType, required=True),
         th.Property(
             "MetadataEntry",
             th.ArrayType(
@@ -36,9 +38,12 @@ class WorkoutsStream(AppleHealthStream):
             th.ArrayType(
                 th.ObjectType(
                     th.Property("type", th.StringType),
-                    th.Property("startDate", th.DateTimeType),
-                    th.Property("endDate", th.DateTimeType),
+                    th.Property("startDate", th.StringType),
+                    th.Property("endDate", th.StringType),
                     th.Property("sum", th.StringType),
+                    th.Property("average", th.StringType),
+                    th.Property("minimum", th.StringType),
+                    th.Property("maximum", th.StringType),
                     th.Property("unit", th.StringType),
                 ),
             ),
@@ -48,7 +53,7 @@ class WorkoutsStream(AppleHealthStream):
             th.ArrayType(
                 th.ObjectType(
                     th.Property("type", th.StringType),
-                    th.Property("date", th.DateTimeType),
+                    th.Property("date", th.StringType),
                     th.Property("duration", th.StringType),
                     th.Property("durationUnit", th.StringType),
                     th.Property(
@@ -70,9 +75,9 @@ class WorkoutsStream(AppleHealthStream):
                     th.Property("sourceName", th.StringType),
                     th.Property("sourceVersion", th.StringType),
                     th.Property("device", th.StringType),
-                    th.Property("creationDate", th.DateTimeType, required=True),
-                    th.Property("startDate", th.DateTimeType, required=True),
-                    th.Property("endDate", th.DateTimeType, required=True),
+                    th.Property("creationDate", th.StringType, required=True),
+                    th.Property("startDate", th.StringType, required=True),
+                    th.Property("endDate", th.StringType, required=True),
                     th.Property(
                         "MetadataEntry",
                         th.ArrayType(
