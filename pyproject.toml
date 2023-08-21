@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-applehealth"
-version = "0.0.1"
+version = "0.0.2"
 description = "`tap-applehealth` is a Singer tap for Apple Health, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Felippe F. Caso"]
