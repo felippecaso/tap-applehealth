@@ -2,17 +2,30 @@
 
 from __future__ import annotations
 
+from typing import ClassVar
+
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
 from tap_applehealth.client import AppleHealthStream
 
 
 class WorkoutsStream(AppleHealthStream):
+    """Class for registered Workouts."""
+
     name = "workouts"
-    xml_element_name = "Workout"
-    primary_key_properties = ["workoutActivityType", "startDate"]
-    primary_keys = ["id"]
     replication_key = None
+    primary_keys: ClassVar[list[str]] = ["id"]
+
+    @property
+    def xml_element_name(self) -> str:
+        """Return the XML element name."""
+        return "Workout"
+
+    @property
+    def primary_key_properties(self) -> list[str]:
+        """Return the properties to consider as pk."""
+        return ["workoutActivityType", "startDate"]
+
     schema = th.PropertiesList(
         th.Property("id", th.StringType, required=True),
         th.Property("workoutActivityType", th.StringType, required=True),
