@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "tap-applehealth"
 version = "0.0.4"
-description = "`tap-applehealth` is a Singer tap for Apple Health, built with the Meltano Singer SDK."
+description = "Singer tap for the `export.xml` file from Apple Health, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Felippe F. Caso"]
 keywords = [
@@ -9,6 +9,7 @@ keywords = [
     "AppleHealth",
 ]
 license = "Apache-2.0"
+repository = "https://github.com/felippecaso/tap-applehealth"
 
 [tool.poetry.dependencies]
 python = "<3.12,>=3.7.1"
